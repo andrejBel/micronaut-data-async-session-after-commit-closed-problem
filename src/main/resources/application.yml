@@ -1,0 +1,29 @@
+micronaut:
+  application:
+    name: azureEmbededApp
+  server:
+    port: 80
+
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE;MODE=MSSQLServer`}
+    username: ${JDBC_USER:sa}
+    password: ${JDBC_PASSWORD:""}
+    driverClassName: ${JDBC_DRIVER:org.h2.Driver}
+    dialect: SQL_SERVER
+    validation-query: "SELECT 1"
+    validation-interval: 10000
+    validation-query-timeout: 1000
+    initial-pool-size: 10
+    min-pool-size: 10
+    maximum-pool-size: '${MAXIMUM_DB_POOL_SIZE:5}'
+jpa:
+  default:
+    properties:
+      hibernate:
+        physical_naming_strategy: "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl"
+        jdbc:
+          time_zone: 'UTC'
+        hbm2ddl:
+          auto: update
+        show_sql: true
